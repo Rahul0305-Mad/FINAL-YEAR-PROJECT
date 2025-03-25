@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+    /* General Styles */
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('static/paper.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Top Header */
+header {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+h2 {
+    margin: 0;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    color: white;
+    transition: 0.3s;
+    padding-top: 60px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.sidebar button {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 18px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: left;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+
+/* Main Content */
+.main-content {
+    margin: 20px;
+    padding: 20px;
+}
+
+/* File Upload Form Styles */
+.upload-form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-form h1 {
+    color: #4CAF50;
+}
+
+.upload-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.upload-form button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.upload-form button:hover {
+    background-color: #45a049;
+}
+
+
+</style>
+<script>
+    // Function to toggle the sidebar
+    function toggleSidebar() {
+        document.getElementById("sidebar").classList.toggle("active");
+    }
+
+    // Function to show the File Upload form and close the sidebar
+    function showUploadForm() {
+        const uploadForm = document.getElementById("upload-form");
+        uploadForm.style.display = "block";
+        toggleSidebar(); // Close the sidebar after selection
+    }
+
+
+
+    // Function to hide the File Upload form
+    function hideUploadForm() {
+        
+        document.getElementById("upload-form").style.display = "none";
+        toggleSidebar();
+    }
+</script>
+</head>
+<body>
+
+<!-- Top Header -->
+<header>
+    <span class="menu-icon" onclick="toggleSidebar()">&#9776;</span>
+    <h2>Dashboard</h2>
+</header>
+
+<!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+    <button onclick="toggleSidebar()">Close &#10006;</button>
+    <ul>
+        <li><a href="/dashboard" onclick="hideUploadForm()">Back</a></li>
+
+        <li><a href="/">Logout</a></li>
+    </ul>
+</div>
+
+<!-- Main Content -->
+<div class="main-content">
+    <!-- Hidden File Upload Form -->
+    <div id="upload-form" class="upload-form">
+        <h1>Text Similarity Analysis</h1>
+        <form action="text_analyze" method="POST" enctype="multipart/form-data">
+            <label for="file">Choose a file (TXT, DOCX, PDF):</label>
+			<input type="file" id="file" name="file" accept=".txt,.docx,.pdf" required>
+			<br><br>
+            <button type="submit">Analyze</button>
+        </form>
+    </div>
+    <h1>Polarisam Percentage:{{maxscore}}</h1>
+
+</div>
+
+</body>
+</html>
